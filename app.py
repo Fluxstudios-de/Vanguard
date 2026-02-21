@@ -19,13 +19,31 @@ bot = commands. Bot (command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready () :
+    channel = bot.get_channel('')
+    if channel:
+        view = discord.ui.DesignerView(timeout=None)
+
+        container = discord.ui.Container(
+            discord.ui.TextDisplay("### 🚀 Started"),
+            discord.ui.TextDisplay("The bot is started and fully functional."),
+            discord.ui.Separator(),
+            discord.ui.TextDisplay(f"- {bot.user.name}"),
+            discord.ui.TextDisplay(f"- {bot.user.id}"),
+            discord.ui.TextDisplay(f"- {round(bot.latency * 1000)} ms"),
+        )
+
+        view.add_item(container)
+
+        await channel.send(view=view)
+        
     print (f"🤖 | {bot. user} ist online.")
     await bot. sync_commands ()
     print (" 🧩 | Commands synchronisiert.")
 
-# # ------------- Tests -------------
+# # ------------- Tests Command -------------
 @bot. slash_command(guild_ids=["GUILD_ID"])
-async def hello(ctx):
-    await ctx. respond ("Hello!")
+async def panel(ctx):
+    view = PanelView(ctx.author)
+    await ctx.send(view=view)
     
 bot. run(TOKEN)
