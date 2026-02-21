@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 class PanelView(discord.ui.DesignerView):
     def __init__(self, author):
-        super().__init__(timeout=120)
+        super().__init__(timeout=None)
         self.author = author
 
         container = discord.ui.Container(
