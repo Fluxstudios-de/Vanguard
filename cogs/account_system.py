@@ -7,7 +7,7 @@ class AccountSystem(commands.Cog):
         self.bot = bot
     
     @commands.slash_command(guild_ids=[GUILD_ID])
-    async def panel(ctx):
+    async def panel(self, ctx):
         view = PanelView(ctx.author)
         await ctx.send(view=view)
 
