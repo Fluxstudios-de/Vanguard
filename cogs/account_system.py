@@ -1,12 +1,15 @@
 import discord
+from discord.ext import commands
 
 
 
 
 
 
-
-
+        @commands.slash_command(guild_ids=[GUILD_ID])
+        async def panel(ctx):
+            view = PanelView(ctx.author)
+            await ctx.send(view=view)
 
 
 
