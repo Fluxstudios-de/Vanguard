@@ -2,14 +2,14 @@ import discord
 from discord.ext import commands
 
 
-
-
-
-
-        @commands.slash_command(guild_ids=[GUILD_ID])
-        async def panel(ctx):
-            view = PanelView(ctx.author)
-            await ctx.send(view=view)
+class Greetings(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+    
+    @commands.slash_command(guild_ids=[GUILD_ID])
+    async def panel(ctx):
+        view = PanelView(ctx.author)
+        await ctx.send(view=view)
 
 
 
