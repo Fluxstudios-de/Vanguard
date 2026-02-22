@@ -14,6 +14,9 @@ from discord.ext import commands
 
 
 
+def setup(bot):
+    cog = 
+    bot.add_cog(cog
 
 class PanelView(discord.ui.DesignerView):
     def __init__(self, author):
