@@ -18,6 +18,7 @@ async def on_ready():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             bot.load_extension(f"cogs.{filename[:-3]}")
+            
     channel = bot.get_channel(1474791125280755984)
     if channel:
         view = discord.ui.DesignerView(timeout=None)
