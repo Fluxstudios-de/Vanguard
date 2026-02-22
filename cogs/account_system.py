@@ -11,9 +11,6 @@ class AccountSystem(commands.Cog):
         view = PanelView(ctx.author)
         await ctx.send(view=view)
 
-
-
-
 def setup(bot):
     cog = AccountSystem(bot)
     bot.add_cog(cog
