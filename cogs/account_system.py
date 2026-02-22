@@ -155,7 +155,7 @@ class VerifyModal(discord.ui.Modal):
             return
 
         if entered_code == data["code"]:
-            role = interaction.guild.get_role(VERIFIED_ROLE_ID)
+            role = interaction.guild.get_role(VERIFIED_ROLE)
             await interaction.user.add_roles(role)
 
             del interaction.client.verification_data[user_id]
