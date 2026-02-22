@@ -15,8 +15,7 @@ class AccountSystem(commands.Cog):
         await ctx.send(view=view)
 
 def setup(bot):
-    cog = AccountSystem(bot)
-    bot.add_cog(cog)
+    bot.add_cog(AccountSystem(bot))
 
 class PanelView(discord.ui.DesignerView):
     def __init__(self, author):
