@@ -83,3 +83,89 @@ class PanelView(discord.ui.DesignerView):
                 "❌ Ich kann dir keine DM senden. Aktiviere DMs.",
                 ephemeral=True
             )
+
+class AccountModal(discord.ui.Modal):
+    def __init__(self):
+        super().__init__(title="Account erstellen")
+
+        self.username = discord.ui.InputText(
+            label="Username",
+            placeholder="Gib deinen Username ein"
+        )
+
+        self.add_item(self.username)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        user_id = interaction.user.id
+
+        # Account ID generieren
+        account_id = ''.join(random.choices(string.digits, k=8))
+
+        # Code generieren
+        code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
+        # Speichern
+        interaction.client.verification_data[user_id] = {
+            "username": self.username.value,
+            "account_id": account_id,
+            "code": code
+        }
+
+        try:
+            await interaction.user.send(
+                f"🎉 Dein Account wurde erstellt!\n\n"
+                f"🆔 Account ID: `{account_id}`\n"
+                f"👤 Username: `{self.username.value}`\n\n"
+                f"🔐 Dein Verifizierungscode:\n`{code}`"
+            )
+        except:
+            await interaction.response.send_message(
+                "❌ Ich kann dir keine DM senden. Aktiviere DMs.",
+                ephemeral=True
+            )
+            return
+
+        await interaction.response.send_message(
+            "✅ Account erstellt! Prüfe deine DMs für den Code.",
+            ephemeral=True
+        )
+
+class VerifyModal(discord.ui.Modal):
+    def __init__(self):
+        super().__init__(title="Verifizieren")
+
+        self.code_input = discord.ui.InputText(
+            label="Verifizierungscode",
+            placeholder="Gib deinen Code ein"
+        )
+
+        self.add_item(self.code_input)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        user_id = interaction.user.id
+        entered_code = self.code_input.value
+
+        data = interaction.client.verification_data.get(user_id)
+
+        if not data:
+            await interaction.response.send_message(
+                "❌ Du hast noch keinen Account erstellt.",
+                ephemeral=True
+            )
+            return
+
+        if entered_code == data["code"]:
+            role = interaction.guild.get_role(VERIFIED_ROLE_ID)
+            await interaction.user.add_roles(role)
+
+            del interaction.client.verification_data[user_id]
+
+            await interaction.response.send_message(
+                "🎉 Erfolgreich verifiziert! Rolle wurde vergeben.",
+                ephemeral=True
+            )
+        else:
+            await interaction.response.send_message(
+                "❌ Falscher Code.",
+                ephemeral=True
+            )
