@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 
-class Greetings(commands.Cog):
+class AccountSystem(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
@@ -15,7 +15,7 @@ class Greetings(commands.Cog):
 
 
 def setup(bot):
-    cog = 
+    cog = AccountSystem(bot)
     bot.add_cog(cog
 
 class PanelView(discord.ui.DesignerView):
