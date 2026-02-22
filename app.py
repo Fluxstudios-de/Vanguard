@@ -35,10 +35,5 @@ async def on_ready():
     await bot.sync_commands()
     print("✅ Commands synchronisiert.")
 
-@bot.slash_command(guild_ids=[GUILD_ID])
-async def panel(ctx):
-    view = PanelView(ctx.author)
-    await ctx.send(view=view)
-
     
 bot.run(TOKEN) 
