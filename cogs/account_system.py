@@ -13,7 +13,7 @@ class AccountSystem(commands.Cog):
 
 def setup(bot):
     cog = AccountSystem(bot)
-    bot.add_cog(cog
+    bot.add_cog(cog)
 
 class PanelView(discord.ui.DesignerView):
     def __init__(self, author):
