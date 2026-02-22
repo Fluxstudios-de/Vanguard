@@ -1,6 +1,9 @@
-import discord
+import discord, os
 from discord.ext import commands
+from dotenv import load_dotenv
 
+load_dotenv()
+GUILD_ID = int(os.getnev("GUILD_IDS")
 
 class AccountSystem(commands.Cog):
     def __init__(self, bot):
